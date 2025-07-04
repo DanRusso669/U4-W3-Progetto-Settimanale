@@ -53,43 +53,38 @@ public class EditorialProductDAO {
         Query query = entityManager.createQuery("DELETE FROM EditorialProduct ep WHERE ep.ISBNCode = :ISBN");
         query.setParameter("ISBN", ISBN);
 
-        int deletedNo = query.executeUpdate();
+        query.executeUpdate();
 
         transaction.commit();
-        System.out.println(deletedNo + " removed successfully.");
+        System.out.println("Element removed successfully.");
     }
 
     public EditorialProduct findByISBN(long ISBN) {
         TypedQuery<EditorialProduct> query = entityManager.createQuery("SELECT ep FROM EditorialProduct ep WHERE ep.ISBNCode = :ISBN", EditorialProduct.class);
         query.setParameter("ISBN", ISBN);
-        EditorialProduct found = query.getSingleResultOrNull();
-        if (found == null) throw new ISBNNotFoundException(ISBN);
-
-        return found;
+        if (query.getSingleResultOrNull() == null) throw new ISBNNotFoundException(ISBN);
+        return query.getSingleResult();
     }
 
     public List<EditorialProduct> findByYear(int year) {
         TypedQuery<EditorialProduct> query = entityManager.createNamedQuery("findByYear", EditorialProduct.class);
         query.setParameter("year", year);
-        List<EditorialProduct> found = query.getResultList();
-        if (found.isEmpty()) throw new YearNotFoundException(year);
-        return found;
+        if (query.getResultList().isEmpty()) throw new YearNotFoundException(year);
+        return query.getResultList();
     }
 
     public List<EditorialProduct> findByAuthor(String author) {
         TypedQuery<EditorialProduct> query = entityManager.createNamedQuery("findByAuthor", EditorialProduct.class);
         query.setParameter("author", author);
-        List<EditorialProduct> found = query.getResultList();
-        if (found.isEmpty()) throw new AuthorOrTitleNotFoundException(author, "author");
-        return found;
+        if (query.getResultList().isEmpty()) throw new AuthorOrTitleNotFoundException(author, "author");
+        return query.getResultList();
     }
 
     public List<EditorialProduct> findByTitle(String title) {
         TypedQuery<EditorialProduct> query = entityManager.createNamedQuery("findByTitle", EditorialProduct.class);
         query.setParameter("title", "%" + title + "%");
-        List<EditorialProduct> found = query.getResultList();
-        if (found.isEmpty()) throw new AuthorOrTitleNotFoundException(title, "title");
-        return found;
+        if (query.getResultList().isEmpty()) throw new AuthorOrTitleNotFoundException(title, "title");
+        return query.getResultList();
     }
 
 }

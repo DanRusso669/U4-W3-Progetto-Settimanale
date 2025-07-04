@@ -13,10 +13,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String surname;
     private LocalDate birthday;
-    @Column(name = "card_number")
+    @Column(name = "card_number", unique = true, nullable = false)
     private long cardNo;
 
     public User() {

@@ -1,13 +1,11 @@
 package danielerusso.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "books")
 public class Book extends EditorialProduct {
+    @Column(nullable = false)
     private String author;
     @Enumerated(EnumType.STRING)
     private BookGenre genre;

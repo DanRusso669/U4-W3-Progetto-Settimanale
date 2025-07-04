@@ -14,8 +14,9 @@ public abstract class EditorialProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
-    @Column(name = "ISBN_code")
+    @Column(name = "ISBN_code", unique = true, nullable = false)
     protected long ISBNCode;
+    @Column(nullable = false)
     protected String title;
     @Column(name = "year_of_publication")
     protected int year;

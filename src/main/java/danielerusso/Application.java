@@ -69,14 +69,17 @@ public class Application {
 
         // ----------- Task 2 ------------
 
-        System.out.println("ELIMINA");
-        epd.findEditProductByISBNAndDelete(978145150);
+        System.out.println("--------------------- Delete by ISBN Code -----------------------");
+        // Questo specifico libro può essere eliminato perchè non è in relazione con nessun BookLoan,
+        // nel caso invece ci sia una relazione, non si può eliminare perchè da ERRORE.
+
+        //epd.findEditProductByISBNAndDelete(978884613);
 
         // ----------- Task 3 ------------
 
         try {
             System.out.println("--------------------- Find By ISBN -----------------------");
-            System.out.println(epd.findByISBN(978834874));
+            System.out.println(epd.findByISBN(97883487));
         } catch (ISBNNotFoundException e) {
             System.out.println(e.getMessage());
         }
