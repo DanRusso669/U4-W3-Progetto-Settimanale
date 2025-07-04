@@ -5,6 +5,10 @@
     <persistence-unit name="u4w3progsett">
         <!-- Il persistence unit ci serve per configurare la connessione ad uno specifico db -->
         <class>danielerusso.entities.User</class>
+        <class>danielerusso.entities.BookLoan</class>
+        <class>danielerusso.entities.Book</class>
+        <class>danielerusso.entities.Magazine</class>
+        <class>danielerusso.entities.EditorialProduct</class>
         <properties>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:postgresql://localhost:5432/u4w3progetto_settimanale"/>

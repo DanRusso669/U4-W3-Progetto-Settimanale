@@ -1,10 +1,21 @@
 package danielerusso.entities;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "editorial_products")
+@Inheritance(strategy = InheritanceType.JOINED)
+
 public abstract class EditorialProduct {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
+    @Column(name = "ISBN_code")
     protected long ISBNCode;
     protected String title;
+    @Column(name = "year of publication")
     protected int year;
+    @Column(name = "number of pages")
     protected int pagesNo;
 
     public EditorialProduct() {
