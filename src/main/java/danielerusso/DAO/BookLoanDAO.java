@@ -34,7 +34,7 @@ public class BookLoanDAO {
     }
 
     public List<EditorialProduct> findEPsByCardNo(long cardNo) {
-        TypedQuery<EditorialProduct> query = entityManager.createQuery("SELECT bl.product FROM BookLoan bl WHERE bl.user.cardNo = :cardNo", EditorialProduct.class);
+        TypedQuery<EditorialProduct> query = entityManager.createQuery("SELECT bl.product FROM BookLoan bl WHERE bl.user.cardNo = :cardNo AND bl.returnDate IS NULL", EditorialProduct.class);
         query.setParameter("cardNo", cardNo);
         if (query.getResultList().isEmpty()) throw new CardNoNotFoundException(cardNo);
 
@@ -43,7 +43,7 @@ public class BookLoanDAO {
 
     //  https://www.datacamp.com/doc/postgresql/current_date
     public List<BookLoan> findExpiredAndNotReturnedYetLoan() {
-        TypedQuery<BookLoan> query = entityManager.createQuery("SELECT bl FROM BookLoan bl WHERE bl.expectedReturnDate < CURRENT_DATE", BookLoan.class);
+        TypedQuery<BookLoan> query = entityManager.createQuery("SELECT bl FROM BookLoan bl WHERE bl.expectedReturnDate < CURRENT_DATE AND bl.returnDate IS NULL", BookLoan.class);
         if (query.getResultList().isEmpty()) throw new ExpiredLoanNotFoundException();
         return query.getResultList();
     }

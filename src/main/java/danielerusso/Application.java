@@ -52,11 +52,13 @@ public class Application {
         BookLoan loan2 = new BookLoan(LocalDate.now().minusDays(4), LocalDate.now(), user2FromDB, book2FromDB);
         BookLoan loan3 = new BookLoan(LocalDate.now().minusDays(40), null, user3FromDB, magazine1FromDB);
         BookLoan loan4 = new BookLoan(LocalDate.now().minusDays(40), null, user3FromDB, magazine2FromDB);
+        BookLoan loan5 = new BookLoan(LocalDate.now().minusDays(40), null, user1FromDB, magazine1FromDB);
 
        /* bld.save(loan1);
         bld.save(loan2);
         bld.save(loan3);
-        bld.save(loan4); */
+        bld.save(loan4);
+        bld.save(loan5); */
 
         // ----------- Task 1 ------------
 
