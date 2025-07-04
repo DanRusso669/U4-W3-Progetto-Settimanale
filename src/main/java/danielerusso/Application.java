@@ -1,9 +1,11 @@
 package danielerusso;
 
+import danielerusso.DAO.BookLoanDAO;
 import danielerusso.DAO.EditorialProductDAO;
 import danielerusso.DAO.UserDAO;
 import danielerusso.entities.*;
 import danielerusso.exceptions.AuthorOrTitleNotFoundException;
+import danielerusso.exceptions.CardNoNotFoundException;
 import danielerusso.exceptions.ISBNNotFoundException;
 import danielerusso.exceptions.YearNotFoundException;
 import jakarta.persistence.EntityManager;
@@ -21,6 +23,7 @@ public class Application {
         EntityManager em = emf.createEntityManager();
         EditorialProductDAO epd = new EditorialProductDAO(em);
         UserDAO ud = new UserDAO(em);
+        BookLoanDAO bld = new BookLoanDAO(em);
 
         Book book1 = new Book(978145150, "Full Dark , No Stars", 2014, 458, "Stephen King", BookGenre.HORROR);
         Book book2 = new Book(928037542, "Oceano Mare", 1993, 293, "Alessandro Baricco", BookGenre.FICTION);
@@ -34,7 +37,7 @@ public class Application {
         User user2 = new User("Giuseppe", "Verdi", LocalDate.of(2000, 1, 8), 5971684);
         User user3 = new User("John", "Doe", LocalDate.of(1987, 10, 29), 7784153);
 
-        /* ud.saveUser(user1);
+       /* ud.saveUser(user1);
         ud.saveUser(user2);
         ud.saveUser(user3); */
 
@@ -42,6 +45,7 @@ public class Application {
         EditorialProduct book1FromDB = epd.findBookById(1);
         EditorialProduct book2FromDB = epd.findBookById(3);
         EditorialProduct magazine1FromDB = epd.findMagazineById(2);
+        EditorialProduct magazine2FromDB = epd.findMagazineById(4);
 
         User user1FromDB = ud.findUserById(1);
         User user2FromDB = ud.findUserById(2);
@@ -50,7 +54,12 @@ public class Application {
         BookLoan loan1 = new BookLoan(LocalDate.now(), LocalDate.now().plusDays(15), user1FromDB, book1FromDB);
         BookLoan loan2 = new BookLoan(LocalDate.now().minusDays(4), LocalDate.now().plusDays(10), user2FromDB, book2FromDB);
         BookLoan loan3 = new BookLoan(LocalDate.now().minusDays(30), null, user3FromDB, magazine1FromDB);
+        BookLoan loan4 = new BookLoan(LocalDate.now().minusDays(30), null, user3FromDB, magazine2FromDB);
 
+        /* bld.save(loan1);
+        bld.save(loan2);
+        bld.save(loan3);
+        bld.save(loan4); */
 
         // ----------- Task 1 ------------
 
@@ -100,6 +109,20 @@ public class Application {
         } catch (AuthorOrTitleNotFoundException e) {
             System.out.println(e.getMessage());
         }
+
+        // ----------- Task 7 ------------
+
+        try {
+            System.out.println("--------------------- Find By Card Number -----------------------");
+            bld.findEPsByCardNo(7784153).forEach(System.out::println);
+        } catch (CardNoNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        // ----------- Task 8 ------------
+        System.out.println("--------------------- Find By Card Number -----------------------");
+
 
     }
 }

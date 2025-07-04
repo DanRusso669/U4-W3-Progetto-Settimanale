@@ -6,6 +6,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "book_loans")
+
+//@NamedQuery(name = "findByCardNo", query = "SElECT bl FROM BookLoan bl WHERE user.card_number = ")
+
 public class BookLoan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +32,6 @@ public class BookLoan {
     public BookLoan() {
     }
 
-    ;
-
     public BookLoan(LocalDate loanStartDate, LocalDate returnDate, User user, EditorialProduct product) {
         this.loanStartDate = loanStartDate;
         this.expectedReturnDate = loanStartDate.plusDays(30);
@@ -39,5 +40,59 @@ public class BookLoan {
         this.product = product;
     }
 
-    ;
+    public long getLoan_id() {
+        return loan_id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public EditorialProduct getProduct() {
+        return product;
+    }
+
+    public void setProduct(EditorialProduct product) {
+        this.product = product;
+    }
+
+    public LocalDate getLoanStartDate() {
+        return loanStartDate;
+    }
+
+    public void setLoanStartDate(LocalDate loanStartDate) {
+        this.loanStartDate = loanStartDate;
+    }
+
+    public LocalDate getExpectedReturnDate() {
+        return expectedReturnDate;
+    }
+
+    public void setExpectedReturnDate(LocalDate expectedReturnDate) {
+        this.expectedReturnDate = expectedReturnDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    @Override
+    public String toString() {
+        return "BookLoan{" +
+                "loan_id=" + loan_id +
+                ", user=" + user +
+                ", product=" + product +
+                ", loanStartDate=" + loanStartDate +
+                ", expectedReturnDate=" + expectedReturnDate +
+                ", returnDate=" + returnDate +
+                '}';
+    }
 }

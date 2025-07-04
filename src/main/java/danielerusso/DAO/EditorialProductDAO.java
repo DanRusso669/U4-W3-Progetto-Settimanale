@@ -21,7 +21,7 @@ public class EditorialProductDAO {
         this.entityManager = entityManager;
     }
 
-    public void save(EditorialProduct newProduct) {
+    public void saveEditorialProduct(EditorialProduct newProduct) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(newProduct);

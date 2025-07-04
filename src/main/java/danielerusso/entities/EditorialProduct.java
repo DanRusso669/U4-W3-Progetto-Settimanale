@@ -17,9 +17,9 @@ public abstract class EditorialProduct {
     @Column(name = "ISBN_code")
     protected long ISBNCode;
     protected String title;
-    @Column(name = "year of publication")
+    @Column(name = "year_of_publication")
     protected int year;
-    @Column(name = "number of pages")
+    @Column(name = "number_of_pages")
     protected int pagesNo;
 
     public EditorialProduct() {
