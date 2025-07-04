@@ -4,10 +4,7 @@ import danielerusso.DAO.BookLoanDAO;
 import danielerusso.DAO.EditorialProductDAO;
 import danielerusso.DAO.UserDAO;
 import danielerusso.entities.*;
-import danielerusso.exceptions.AuthorOrTitleNotFoundException;
-import danielerusso.exceptions.CardNoNotFoundException;
-import danielerusso.exceptions.ISBNNotFoundException;
-import danielerusso.exceptions.YearNotFoundException;
+import danielerusso.exceptions.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -52,11 +49,11 @@ public class Application {
         User user3FromDB = ud.findUserById(3);
 
         BookLoan loan1 = new BookLoan(LocalDate.now(), LocalDate.now().plusDays(15), user1FromDB, book1FromDB);
-        BookLoan loan2 = new BookLoan(LocalDate.now().minusDays(4), LocalDate.now().plusDays(10), user2FromDB, book2FromDB);
-        BookLoan loan3 = new BookLoan(LocalDate.now().minusDays(30), null, user3FromDB, magazine1FromDB);
-        BookLoan loan4 = new BookLoan(LocalDate.now().minusDays(30), null, user3FromDB, magazine2FromDB);
+        BookLoan loan2 = new BookLoan(LocalDate.now().minusDays(4), LocalDate.now(), user2FromDB, book2FromDB);
+        BookLoan loan3 = new BookLoan(LocalDate.now().minusDays(40), null, user3FromDB, magazine1FromDB);
+        BookLoan loan4 = new BookLoan(LocalDate.now().minusDays(40), null, user3FromDB, magazine2FromDB);
 
-        /* bld.save(loan1);
+       /* bld.save(loan1);
         bld.save(loan2);
         bld.save(loan3);
         bld.save(loan4); */
@@ -72,7 +69,8 @@ public class Application {
 
         // ----------- Task 2 ------------
 
-        //epd.findEditProductByISBNAndDelete(978741135);
+        System.out.println("ELIMINA");
+        epd.findEditProductByISBNAndDelete(978145150);
 
         // ----------- Task 3 ------------
 
@@ -121,7 +119,12 @@ public class Application {
 
 
         // ----------- Task 8 ------------
-        System.out.println("--------------------- Find By Card Number -----------------------");
+        try {
+            System.out.println("--------------------- Find By Expired Loans -----------------------");
+            bld.findExpiredAndNotReturnedYetLoan().forEach(System.out::println);
+        } catch (ExpiredLoanNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
 
     }

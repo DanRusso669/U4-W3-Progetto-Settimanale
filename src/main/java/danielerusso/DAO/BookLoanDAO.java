@@ -3,6 +3,7 @@ package danielerusso.DAO;
 import danielerusso.entities.BookLoan;
 import danielerusso.entities.EditorialProduct;
 import danielerusso.exceptions.CardNoNotFoundException;
+import danielerusso.exceptions.ExpiredLoanNotFoundException;
 import danielerusso.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -40,4 +41,13 @@ public class BookLoanDAO {
 
         return found;
     }
+
+    //  https://www.datacamp.com/doc/postgresql/current_date
+    public List<BookLoan> findExpiredAndNotReturnedYetLoan() {
+        TypedQuery<BookLoan> query = entityManager.createQuery("SELECT bl FROM BookLoan bl WHERE bl.expectedReturnDate < CURRENT_DATE", BookLoan.class);
+        List<BookLoan> found = query.getResultList();
+        if (found.isEmpty()) throw new ExpiredLoanNotFoundException();
+        return found;
+    }
+
 }
