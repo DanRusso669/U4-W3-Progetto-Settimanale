@@ -18,7 +18,10 @@ public class BookLoan {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
+    // Bisogna guardare alla vita totale dell'elemento e non al momento specifico.
+    // Un libro può avere più prestiti, semplicemente non nello stesso momento.
+    // @OneToOne è quindi sbagliato concettualmente.
+    @ManyToOne
     @JoinColumn(name = "editorial_product_id")
     private EditorialProduct product;
 
