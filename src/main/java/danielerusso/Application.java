@@ -1,16 +1,16 @@
 package danielerusso;
 
 import danielerusso.DAO.EditorialProductDAO;
-import danielerusso.entities.Book;
-import danielerusso.entities.BookGenre;
-import danielerusso.entities.Magazine;
-import danielerusso.entities.MagazinePeriodicity;
+import danielerusso.DAO.UserDAO;
+import danielerusso.entities.*;
 import danielerusso.exceptions.AuthorOrTitleNotFoundException;
 import danielerusso.exceptions.ISBNNotFoundException;
 import danielerusso.exceptions.YearNotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
+import java.time.LocalDate;
 
 public class Application {
 
@@ -20,6 +20,7 @@ public class Application {
 
         EntityManager em = emf.createEntityManager();
         EditorialProductDAO epd = new EditorialProductDAO(em);
+        UserDAO ud = new UserDAO(em);
 
         Book book1 = new Book(978145150, "Full Dark , No Stars", 2014, 458, "Stephen King", BookGenre.HORROR);
         Book book2 = new Book(928037542, "Oceano Mare", 1993, 293, "Alessandro Baricco", BookGenre.FICTION);
@@ -29,14 +30,36 @@ public class Application {
         Magazine magazine2 = new Magazine(978741135, "GialloZafferano", 2005, 63, MagazinePeriodicity.SEMIANNUALY);
         Magazine magazine3 = new Magazine(875862819, "Quattro Ruote", 2014, 74, MagazinePeriodicity.MONTHLY);
 
+        User user1 = new User("Mario", "Rossi", LocalDate.of(1994, 7, 19), 8748136);
+        User user2 = new User("Giuseppe", "Verdi", LocalDate.of(2000, 1, 8), 5971684);
+        User user3 = new User("John", "Doe", LocalDate.of(1987, 10, 29), 7784153);
+
+        /* ud.saveUser(user1);
+        ud.saveUser(user2);
+        ud.saveUser(user3); */
+
+
+        EditorialProduct book1FromDB = epd.findBookById(1);
+        EditorialProduct book2FromDB = epd.findBookById(3);
+        EditorialProduct magazine1FromDB = epd.findMagazineById(2);
+
+        User user1FromDB = ud.findUserById(1);
+        User user2FromDB = ud.findUserById(2);
+        User user3FromDB = ud.findUserById(3);
+
+        BookLoan loan1 = new BookLoan(LocalDate.now(), LocalDate.now().plusDays(15), user1FromDB, book1FromDB);
+        BookLoan loan2 = new BookLoan(LocalDate.now().minusDays(4), LocalDate.now().plusDays(10), user2FromDB, book2FromDB);
+        BookLoan loan3 = new BookLoan(LocalDate.now().minusDays(30), null, user3FromDB, magazine1FromDB);
+
+
         // ----------- Task 1 ------------
 
-        /* epd.save(book1);
-        epd.save(magazine1);
-        epd.save(book2);
-        epd.save(magazine2);
-        epd.save(book3);
-        epd.save(magazine3); */
+        /* epd.saveEditorialProduct(book1);
+        epd.saveEditorialProduct(magazine1);
+        epd.saveEditorialProduct(book2);
+        epd.saveEditorialProduct(magazine2);
+        epd.saveEditorialProduct(book3);
+        epd.saveEditorialProduct(magazine3); */
 
         // ----------- Task 2 ------------
 

@@ -29,21 +29,21 @@ public class EditorialProductDAO {
         System.out.println("Editorial product " + newProduct.getTitle() + " saved successfully.");
     }
 
-    public EditorialProduct findById(long id) {
+    public EditorialProduct findEPById(long id) {
         EditorialProduct found = entityManager.find(EditorialProduct.class, id);
-        if (found == null) throw new NotFoundException(id);
+        if (found == null) throw new NotFoundException(id, "Records");
         return found;
     }
 
     public Book findBookById(long id) {
         Book found = entityManager.find(Book.class, id);
-        if (found == null) throw new NotFoundException(id);
+        if (found == null) throw new NotFoundException(id, "Book");
         return found;
     }
 
     public Magazine findMagazineById(long id) {
         Magazine found = entityManager.find(Magazine.class, id);
-        if (found == null) throw new NotFoundException(id);
+        if (found == null) throw new NotFoundException(id, "Magazine");
         return found;
     }
 

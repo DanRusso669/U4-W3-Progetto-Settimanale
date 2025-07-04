@@ -3,10 +3,13 @@ package danielerusso.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
+    @OneToMany(mappedBy = "user")
+    List<BookLoan> bookLoanList;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
