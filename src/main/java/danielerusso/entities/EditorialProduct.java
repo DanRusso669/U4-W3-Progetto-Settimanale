@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 @Table(name = "editorial_products")
 @Inheritance(strategy = InheritanceType.JOINED)
 
-@NamedQuery(name = "findByYear", query = "SElECT ep FROM EditorialProduct ep WHERE ep.year = :year")
-@NamedQuery(name = "findByAuthor", query = "SElECT ep FROM EditorialProduct ep WHERE ep.author = :author")
-@NamedQuery(name = "findByTitle", query = "SElECT ep FROM EditorialProduct ep WHERE LOWER(ep.title) LIKE LOWER(:title)")
+@NamedQuery(name = "findByYear", query = "SELECT ep FROM EditorialProduct ep WHERE ep.year = :year")
+@NamedQuery(name = "findByAuthor", query = "SELECT ep FROM EditorialProduct ep WHERE ep.author = :author")
+@NamedQuery(name = "findByTitle", query = "SELECT ep FROM EditorialProduct ep WHERE LOWER(ep.title) LIKE LOWER(:title)")
 
 public abstract class EditorialProduct {
     @Id
